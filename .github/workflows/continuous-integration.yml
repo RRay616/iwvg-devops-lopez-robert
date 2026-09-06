@@ -55,7 +55,7 @@ jobs:
         run: >
           mvn -B sonar:sonar 
           -Dsonar.projectKey=rray616_${{ env.ARTIFACT }}
-          -Dsonar.organization=RRay616 
+          -Dsonar.organization=rray616 
           -Dsonar.host.url=https://sonarcloud.io 
           -Dsonar.token=${{ secrets.SONAR_TOKEN }}
         env:
