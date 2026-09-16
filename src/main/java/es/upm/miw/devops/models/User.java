@@ -1,12 +1,21 @@
 package es.upm.miw.devops.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
     private String id;
     private String name;
     private String familyName;
+    @Transient
     private List<Fraction> fractions;
 
     public User() {
