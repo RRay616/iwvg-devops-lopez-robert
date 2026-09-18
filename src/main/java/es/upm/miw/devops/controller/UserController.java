@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
@@ -37,5 +39,12 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable String id) {
         this.userService.deleteById(id);
+    }
+
+    @PutMapping("/{id}/active")
+    public User updateActive(
+            @PathVariable String id,
+            @RequestBody boolean active) {
+        return this.userService.updateActive(id, active);
     }
 }

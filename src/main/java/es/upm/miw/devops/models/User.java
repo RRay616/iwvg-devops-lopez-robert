@@ -23,6 +23,7 @@ public class User {
     private String city;
     private String province;
     private String postalCode;
+    private boolean active = true;
 
     @Transient
     private List<Fraction> fractions;
@@ -123,6 +124,14 @@ public class User {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public List<Fraction> getFractions() {
