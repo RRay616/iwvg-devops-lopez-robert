@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -43,5 +45,41 @@ class UserServiceTest {
                 .isInstanceOf(ResponseStatusException.class)
                 .hasMessageContaining("404 NOT_FOUND")
                 .hasMessageContaining("User not found");
+    }
+
+    @Test
+    void testFindByFilterBillableTrue() {
+        List<User> users = this.userService.findByFilter(null, null, true);
+
+        assertThat(users)
+                .extracting(User::getId)
+                .containsExactly("1", "3", "4");
+    }
+
+    @Test
+    void testFindByFilterBillableFalse() {
+        List<User> users = this.userService.findByFilter(null, null, false);
+
+        assertThat(users)
+                .extracting(User::getId)
+                .containsExactly("2", "5", "6");
+    }
+
+    @Test
+    void testFindByFilterByName() {
+        List<User> users = this.userService.findByFilter("Oscar", null, null);
+
+        assertThat(users)
+                .extracting(User::getId)
+                .containsExactly("1", "3");
+    }
+
+    @Test
+    void testFindByFilterByNameAndBillable() {
+        List<User> users = this.userService.findByFilter("Oscar", null, true);
+
+        assertThat(users)
+                .extracting(User::getId)
+                .containsExactly("1", "3");
     }
 }
