@@ -34,4 +34,15 @@ public class UserService {
                 .sorted(Comparator.comparing(User::getId))
                 .toList();
     }
+
+    public void deleteById(String id) {
+        if (!this.userRepository.existsById(id)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "User not found"
+            );
+        }
+
+        this.userRepository.deleteById(id);
+    }
 }
