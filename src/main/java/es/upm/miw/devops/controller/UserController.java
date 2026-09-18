@@ -5,7 +5,10 @@ import es.upm.miw.devops.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -20,5 +23,13 @@ public class UserController {
     @GetMapping("/{id}")
     public User readById(@PathVariable String id) {
         return this.userService.readById(id);
+    }
+
+    @GetMapping("/search")
+    public List<User> findByFilter(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String familyName,
+            @RequestParam(required = false) Boolean billable) {
+        return this.userService.findByFilter(name, familyName, billable);
     }
 }
