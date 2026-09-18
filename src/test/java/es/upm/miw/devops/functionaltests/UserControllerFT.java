@@ -86,4 +86,25 @@ class UserControllerFT {
                 .jsonPath("$[0].id").isEqualTo("1")
                 .jsonPath("$[1].id").isEqualTo("3");
     }
+
+    @Test
+    void testDeleteById() {
+        this.webTestClient.delete()
+                .uri("/user/1")
+                .exchange()
+                .expectStatus().isOk();
+
+        this.webTestClient.get()
+                .uri("/user/1")
+                .exchange()
+                .expectStatus().isNotFound();
+    }
+
+    @Test
+    void testDeleteByIdNotFound() {
+        this.webTestClient.delete()
+                .uri("/user/999")
+                .exchange()
+                .expectStatus().isNotFound();
+    }
 }

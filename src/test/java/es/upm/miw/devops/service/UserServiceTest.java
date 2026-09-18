@@ -82,4 +82,22 @@ class UserServiceTest {
                 .extracting(User::getId)
                 .containsExactly("1", "3");
     }
+
+    @Test
+    void testDeleteById() {
+        this.userService.deleteById("1");
+
+        assertThatThrownBy(() -> this.userService.readById("1"))
+                .isInstanceOf(ResponseStatusException.class)
+                .hasMessageContaining("404 NOT_FOUND")
+                .hasMessageContaining("User not found");
+    }
+
+    @Test
+    void testDeleteByIdNotFound() {
+        assertThatThrownBy(() -> this.userService.deleteById("999"))
+                .isInstanceOf(ResponseStatusException.class)
+                .hasMessageContaining("404 NOT_FOUND")
+                .hasMessageContaining("User not found");
+    }
 }
