@@ -5,6 +5,8 @@ services:
     restart: always
     ports:
       - "8080:8080"
+    environment:
+      - DB_HOST=postgres
     networks:
       - devopsNet
 
@@ -12,4 +14,7 @@ networks:
   devopsNet:
     external: true
 
-#> docker compose up --build -d
+# Start the application
+# docker compose up --build -d
+# Requires PostgreSQL to be running:
+# docker compose -f docker-compose-db.yml -p databases up -d
