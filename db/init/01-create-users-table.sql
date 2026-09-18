@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS users (
+    id VARCHAR(20) PRIMARY KEY,
+    name VARCHAR(100),
+    family_name VARCHAR(100)
+);

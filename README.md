@@ -10,8 +10,8 @@
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/miw-upm/iwvg-devops?color=informational)
 
 ### Estado del código
-[![DevOps](https://github.com/miw-upm/iwvg-devops/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/miw-upm/iwvg-devops/actions/workflows/continuous-integration.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=es.upm.miw%3Aiwvg-devops&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=es.upm.miw%3Aiwvg-devops)
+[![CI iwvg-devops](https://github.com/RRay616/iwvg-devops-lopez-robert/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/RRay616/iwvg-devops-lopez-robert/actions/workflows/continuous-integration.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rray616_iwvg-devops-lopez-robert&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=rray616_iwvg-devops-lopez-robert)
 [![Render broken](https://iwvg-devops-latest.onrender.com/version-badge)](https://iwvg-devops-latest.onrender.com/swagger-ui.html)
 
 
