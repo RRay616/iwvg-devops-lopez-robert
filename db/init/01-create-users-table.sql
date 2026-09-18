@@ -7,5 +7,6 @@ CREATE TABLE IF NOT EXISTS users (
     address VARCHAR(200),
     city VARCHAR(100),
     province VARCHAR(100),
-    postal_code VARCHAR(20)
+    postal_code VARCHAR(20),
+    active BOOLEAN NOT NULL DEFAULT TRUE
 );

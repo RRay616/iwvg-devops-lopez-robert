@@ -45,4 +45,10 @@ public class UserService {
 
         this.userRepository.deleteById(id);
     }
+
+    public User updateActive(String id, boolean active) {
+        User user = this.readById(id);
+        user.setActive(active);
+        return this.userRepository.save(user);
+    }
 }

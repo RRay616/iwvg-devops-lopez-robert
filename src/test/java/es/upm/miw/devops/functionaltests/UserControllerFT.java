@@ -107,4 +107,25 @@ class UserControllerFT {
                 .exchange()
                 .expectStatus().isNotFound();
     }
+
+    @Test
+    void testUpdateActive() {
+        this.webTestClient.put()
+                .uri("/user/1/active")
+                .bodyValue(false)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.id").isEqualTo("1")
+                .jsonPath("$.active").isEqualTo(false);
+    }
+
+    @Test
+    void testUpdateActiveNotFound() {
+        this.webTestClient.put()
+                .uri("/user/999/active")
+                .bodyValue(false)
+                .exchange()
+                .expectStatus().isNotFound();
+    }
 }
