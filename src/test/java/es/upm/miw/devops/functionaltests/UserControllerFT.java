@@ -44,4 +44,88 @@ class UserControllerFT {
                 .exchange()
                 .expectStatus().isNotFound();
     }
+
+    @Test
+    void testFindByFilterBillableTrue() {
+        this.webTestClient.get()
+                .uri("/user/search?billable=true")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$[0].id").isEqualTo("1")
+                .jsonPath("$[0].billable").isEqualTo(true)
+                .jsonPath("$[1].id").isEqualTo("3")
+                .jsonPath("$[1].billable").isEqualTo(true)
+                .jsonPath("$[2].id").isEqualTo("4")
+                .jsonPath("$[2].billable").isEqualTo(true);
+    }
+
+    @Test
+    void testFindByFilterBillableFalse() {
+        this.webTestClient.get()
+                .uri("/user/search?billable=false")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$[0].id").isEqualTo("2")
+                .jsonPath("$[0].billable").isEqualTo(false)
+                .jsonPath("$[1].id").isEqualTo("5")
+                .jsonPath("$[1].billable").isEqualTo(false)
+                .jsonPath("$[2].id").isEqualTo("6")
+                .jsonPath("$[2].billable").isEqualTo(false);
+    }
+
+    @Test
+    void testFindByFilterByNameAndBillable() {
+        this.webTestClient.get()
+                .uri("/user/search?name=Oscar&billable=true")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.length()").isEqualTo(2)
+                .jsonPath("$[0].id").isEqualTo("1")
+                .jsonPath("$[1].id").isEqualTo("3");
+    }
+
+    @Test
+    void testDeleteById() {
+        this.webTestClient.delete()
+                .uri("/user/1")
+                .exchange()
+                .expectStatus().isOk();
+
+        this.webTestClient.get()
+                .uri("/user/1")
+                .exchange()
+                .expectStatus().isNotFound();
+    }
+
+    @Test
+    void testDeleteByIdNotFound() {
+        this.webTestClient.delete()
+                .uri("/user/999")
+                .exchange()
+                .expectStatus().isNotFound();
+    }
+
+    @Test
+    void testUpdateActive() {
+        this.webTestClient.put()
+                .uri("/user/1/active")
+                .bodyValue(false)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.id").isEqualTo("1")
+                .jsonPath("$.active").isEqualTo(false);
+    }
+
+    @Test
+    void testUpdateActiveNotFound() {
+        this.webTestClient.put()
+                .uri("/user/999/active")
+                .bodyValue(false)
+                .exchange()
+                .expectStatus().isNotFound();
+    }
 }
