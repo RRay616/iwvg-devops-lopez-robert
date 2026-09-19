@@ -1,6 +1,11 @@
+server:
+  port: 8080
+
 spring:
+  application:
+    name: iwvg-devops-lopez-robert
   profiles:
-    active: dev
+    default: dev
   output:
     ansi:
       enabled: ALWAYS
@@ -8,6 +13,8 @@ spring:
     type: none
   jackson:
     default-property-inclusion: NON_NULL
+  jpa:
+    open-in-view: false
 
 info:
   app:
@@ -15,16 +22,22 @@ info:
     version: "@project.version@"
     build: "@maven.build.timestamp@"
 
-logging:
-  level:
-    root: WARN
-    es.upm.miw: DEBUG
+app:
+  hosting: localhost
 
 management:
   endpoints:
     web:
       exposure:
         include: health,info
+  endpoint:
+    health:
+      show-details: never
   info:
     env:
       enabled: true
+
+logging:
+  level:
+    root: WARN
+    es.upm.miw: DEBUG
