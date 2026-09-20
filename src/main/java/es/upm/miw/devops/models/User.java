@@ -45,17 +45,11 @@ public class User {
                 String email,
                 String identity,
                 String address,
-                String city,
-                String province,
-                String postalCode,
                 List<Fraction> fractions) {
         this(id, name, familyName, fractions);
         this.email = email;
         this.identity = identity;
         this.address = address;
-        this.city = city;
-        this.province = province;
-        this.postalCode = postalCode;
     }
 
     public String getId() {
