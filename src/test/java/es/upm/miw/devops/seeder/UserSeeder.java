@@ -18,79 +18,91 @@ public class UserSeeder {
     public void seed() {
         userRepository.deleteAll();
 
+        User user1 = new User(
+                "1",
+                "Oscar",
+                "Fernandez",
+                "oscar@example.com",
+                "12345678A",
+                "Calle Mayor 1",
+                List.of()
+        );
+        user1.setCity("Madrid");
+        user1.setProvince("Madrid");
+        user1.setPostalCode("28001");
+
+        User user2 = new User(
+                "2",
+                "Ana",
+                "Blanco",
+                "ana@example.com",
+                "87654321B",
+                "Calle Mayor 2",
+                List.of()
+        );
+        user2.setCity("Madrid");
+        user2.setProvince(null);
+        user2.setPostalCode("28002");
+
+        User user3 = new User(
+                "3",
+                "Oscar",
+                "López",
+                "oscar.lopez@example.com",
+                "11223344C",
+                "Calle Mayor 3",
+                List.of()
+        );
+        user3.setCity("Madrid");
+        user3.setProvince("Madrid");
+        user3.setPostalCode("28003");
+
+        User user4 = new User(
+                "4",
+                "Paula",
+                "Torres",
+                "paula@example.com",
+                "22334455D",
+                "Calle Mayor 4",
+                List.of()
+        );
+        user4.setCity("Madrid");
+        user4.setProvince("Madrid");
+        user4.setPostalCode("28004");
+
+        User user5 = new User(
+                "5",
+                "Antonio",
+                "Blanco",
+                null,
+                "33445566E",
+                "Calle Mayor 5",
+                List.of()
+        );
+        user5.setCity("Madrid");
+        user5.setProvince("Madrid");
+        user5.setPostalCode("28005");
+
+        User user6 = new User(
+                "6",
+                "Paula",
+                "Torres",
+                "paula.torres@example.com",
+                "44556677F",
+                null,
+                List.of()
+        );
+        user6.setCity("Madrid");
+        user6.setProvince("Madrid");
+        user6.setPostalCode("28006");
+
         userRepository.saveAll(List.of(
-                new User(
-                        "1",
-                        "Oscar",
-                        "Fernandez",
-                        "oscar@example.com",
-                        "12345678A",
-                        "Calle Mayor 1",
-                        "Madrid",
-                        "Madrid",
-                        "28001",
-                        List.of()
-                ),
-                new User(
-                        "2",
-                        "Ana",
-                        "Blanco",
-                        "ana@example.com",
-                        "87654321B",
-                        "Calle Mayor 2",
-                        "Madrid",
-                        null,
-                        "28002",
-                        List.of()
-                ),
-                new User(
-                        "3",
-                        "Oscar",
-                        "López",
-                        "oscar.lopez@example.com",
-                        "11223344C",
-                        "Calle Mayor 3",
-                        "Madrid",
-                        "Madrid",
-                        "28003",
-                        List.of()
-                ),
-                new User(
-                        "4",
-                        "Paula",
-                        "Torres",
-                        "paula@example.com",
-                        "22334455D",
-                        "Calle Mayor 4",
-                        "Madrid",
-                        "Madrid",
-                        "28004",
-                        List.of()
-                ),
-                new User(
-                        "5",
-                        "Antonio",
-                        "Blanco",
-                        null,
-                        "33445566E",
-                        "Calle Mayor 5",
-                        "Madrid",
-                        "Madrid",
-                        "28005",
-                        List.of()
-                ),
-                new User(
-                        "6",
-                        "Paula",
-                        "Torres",
-                        "paula.torres@example.com",
-                        "44556677F",
-                        null,
-                        "Madrid",
-                        "Madrid",
-                        "28006",
-                        List.of()
-                )
+                user1,
+                user2,
+                user3,
+                user4,
+                user5,
+                user6
         ));
     }
 }

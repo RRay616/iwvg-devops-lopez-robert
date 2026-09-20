@@ -12,11 +12,15 @@ jobs:
 
     steps:
       - name: 🚀 Deploy PostgreSQL on AWS Lightsail
-        uses: appleboy/ssh-action@v1.2.1
+        uses: appleboy/ssh-action@8faa84277b88b6cd1455986f459aa66cf72bc8a3 # v1.2.1
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         with:
           host: ${{ secrets.AWS_LIGHTSAIL_IP_MAIN }}
           username: ${{ secrets.AWS_LIGHTSAIL_USER_MAIN }}
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY_MAIN }}
+          envs: POSTGRES_USER,POSTGRES_PASSWORD
           script: |
             docker rm -f postgres || true
             docker network create devops || true
@@ -25,7 +29,7 @@ jobs:
               --name postgres \
               --restart always \
               --network devops \
-              -e POSTGRES_USER=${{ secrets.POSTGRES_USER }} \
-              -e POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
+              -e POSTGRES_USER="$POSTGRES_USER" \
+              -e POSTGRES_PASSWORD="$POSTGRES_PASSWORD" \
               -e POSTGRES_DB=iwvgdevopsdb \
               postgres:15.10
