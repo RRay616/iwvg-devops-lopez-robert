@@ -2,18 +2,18 @@
 ## Ingeniería Web: Visión General (IWVG) DevOps
 > Este proyecto es un apoyo docente de la asignatura. Cada release liberada corresponde al código utilizado en clase del curso indicado
 
-[![GitHub](https://img.shields.io/github/license/miw-upm/iwvg-devops?color=informational)](https://github.com/miw-upm/iwvg-devops/blob/develop/LICENSE.md)
-[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/miw-upm/iwvg-devops?color=informational)](https://github.com/miw-upm/iwvg-devops/releases)
-![GitHub Release Date](https://img.shields.io/github/release-date/miw-upm/iwvg-devops?color=informational)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/miw-upm/iwvg-devops)
-![GitHub issues](https://img.shields.io/github/issues/miw-upm/iwvg-devops?color=important)
-![GitHub closed issues](https://img.shields.io/github/issues-closed/miw-upm/iwvg-devops?color=informational)
+[![GitHub](https://img.shields.io/github/license/RRay616/iwvg-devops-lopez-robert?color=informational)](https://github.com/RRay616/iwvg-devops-lopez-robert/blob/develop/LICENSE.md)
+[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/RRay616/iwvg-devops-lopez-robert?color=informational)](https://github.com/RRay616/iwvg-devops-lopez-robert/releases)
+![GitHub Release Date](https://img.shields.io/github/release-date/RRay616/iwvg-devops-lopez-robert?color=informational)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/RRay616/iwvg-devops-lopez-robert)
+![GitHub issues](https://img.shields.io/github/issues/RRay616/iwvg-devops-lopez-robert?color=important)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/RRay616/iwvg-devops-lopez-robert?color=informational)
 
 ### Estado del código
 [![CI iwvg-devops](https://github.com/RRay616/iwvg-devops-lopez-robert/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/RRay616/iwvg-devops-lopez-robert/actions/workflows/continuous-integration.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rray616_iwvg-devops-lopez-robert&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=rray616_iwvg-devops-lopez-robert)
-[![Render broken](https://iwvg-devops-latest.onrender.com/version-badge)](https://iwvg-devops-latest.onrender.com/swagger-ui.html)
-
+[![Render](https://iwvg-devops-lopez-robert.onrender.com/version-badge)](https://iwvg-devops-lopez-robert.onrender.com/swagger-ui.html)
+[![AWS](http://13.38.139.32:8080/version-badge)](http://13.38.139.32:8080)
 
 ### Tecnologías necesarias
 `Java` `Maven` `GitHub` `GitHub Actions` `Sonarcloud` `Slack` `Spring-Boot` `GitHub Packages` `Docker` `OpenAPI`
