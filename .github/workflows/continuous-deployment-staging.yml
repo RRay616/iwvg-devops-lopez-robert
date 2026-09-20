@@ -37,7 +37,7 @@ jobs:
       #    Repo → Settings → Secrets and variables → Actions → New repository secret
       #    Name: GHCR_PERSONAL_ACCESS_TOKEN, Value: <tu token>
       - name: 📦 Login to GitHub Container Registry
-        uses: docker/login-action@c94ce9f468520275223c153574b00df6fe4bcc9 # v3.7.0
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
