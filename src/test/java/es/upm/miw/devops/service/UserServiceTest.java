@@ -120,4 +120,111 @@ class UserServiceTest {
                 .hasMessageContaining("404 NOT_FOUND")
                 .hasMessageContaining("User not found");
     }
+
+    @Test
+    void testUpdate() {
+        User user = new User(
+                "1",
+                "Pedro",
+                "Lopez",
+                "pedro@example.com",
+                "98765432B",
+                "Calle Nueva 10",
+                List.of()
+        );
+        user.setCity("Madrid");
+        user.setProvince("Madrid");
+        user.setPostalCode("28010");
+        user.setActive(false);
+
+        User updatedUser = this.userService.update("1", user);
+
+        assertThat(updatedUser).isNotNull();
+        assertThat(updatedUser.getId()).isEqualTo("1");
+        assertThat(updatedUser.getName()).isEqualTo("Pedro");
+        assertThat(updatedUser.getFamilyName()).isEqualTo("Lopez");
+        assertThat(updatedUser.getEmail()).isEqualTo("pedro@example.com");
+        assertThat(updatedUser.getIdentity()).isEqualTo("98765432B");
+        assertThat(updatedUser.getAddress()).isEqualTo("Calle Nueva 10");
+        assertThat(updatedUser.getCity()).isEqualTo("Madrid");
+        assertThat(updatedUser.getProvince()).isEqualTo("Madrid");
+        assertThat(updatedUser.getPostalCode()).isEqualTo("28010");
+        assertThat(updatedUser.isActive()).isFalse();
+
+        User persistedUser = this.userService.readById("1");
+
+        assertThat(persistedUser.getName()).isEqualTo("Pedro");
+        assertThat(persistedUser.getFamilyName()).isEqualTo("Lopez");
+        assertThat(persistedUser.getEmail()).isEqualTo("pedro@example.com");
+        assertThat(persistedUser.getIdentity()).isEqualTo("98765432B");
+        assertThat(persistedUser.getAddress()).isEqualTo("Calle Nueva 10");
+        assertThat(persistedUser.getCity()).isEqualTo("Madrid");
+        assertThat(persistedUser.getProvince()).isEqualTo("Madrid");
+        assertThat(persistedUser.getPostalCode()).isEqualTo("28010");
+        assertThat(persistedUser.isActive()).isFalse();
+    }
+
+    @Test
+    void testUpdateNotFound() {
+        User user = new User(
+                "999",
+                "Pedro",
+                "Lopez",
+                "pedro@example.com",
+                "98765432B",
+                "Calle Nueva 10",
+                List.of()
+        );
+        user.setCity("Madrid");
+        user.setProvince("Madrid");
+        user.setPostalCode("28010");
+        user.setActive(false);
+
+        assertThatThrownBy(() -> this.userService.update("999", user))
+                .isInstanceOf(ResponseStatusException.class)
+                .hasMessageContaining("404 NOT_FOUND")
+                .hasMessageContaining("User not found");
+    }
+
+    @Test
+    void testUpdateActiveList() {
+        User user1 = this.userService.readById("1");
+        User user3 = this.userService.readById("3");
+
+        user1.setActive(false);
+        user3.setActive(false);
+
+        List<User> updatedUsers = this.userService.updateActive(
+                List.of(user1, user3)
+        );
+
+        assertThat(updatedUsers)
+                .extracting(User::getId)
+                .containsExactly("1", "3");
+
+        assertThat(updatedUsers)
+                .extracting(User::isActive)
+                .containsExactly(false, false);
+
+        assertThat(this.userService.readById("1").isActive()).isFalse();
+        assertThat(this.userService.readById("3").isActive()).isFalse();
+    }
+
+    @Test
+    void testUpdateActiveListNotFound() {
+        User user = new User(
+                "999",
+                "Pedro",
+                "Lopez",
+                List.of()
+        );
+        user.setActive(false);
+
+        assertThatThrownBy(() -> this.userService.updateActive(
+                List.of(user)
+        ))
+                .isInstanceOf(ResponseStatusException.class)
+                .hasMessageContaining("404 NOT_FOUND")
+                .hasMessageContaining("User not found");
+    }
 }
