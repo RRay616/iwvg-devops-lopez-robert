@@ -185,4 +185,46 @@ class UserServiceTest {
                 .hasMessageContaining("404 NOT_FOUND")
                 .hasMessageContaining("User not found");
     }
+
+    @Test
+    void testUpdateActiveList() {
+        User user1 = this.userService.readById("1");
+        User user3 = this.userService.readById("3");
+
+        user1.setActive(false);
+        user3.setActive(false);
+
+        List<User> updatedUsers = this.userService.updateActive(
+                List.of(user1, user3)
+        );
+
+        assertThat(updatedUsers)
+                .extracting(User::getId)
+                .containsExactly("1", "3");
+
+        assertThat(updatedUsers)
+                .extracting(User::isActive)
+                .containsExactly(false, false);
+
+        assertThat(this.userService.readById("1").isActive()).isFalse();
+        assertThat(this.userService.readById("3").isActive()).isFalse();
+    }
+
+    @Test
+    void testUpdateActiveListNotFound() {
+        User user = new User(
+                "999",
+                "Pedro",
+                "Lopez",
+                List.of()
+        );
+        user.setActive(false);
+
+        assertThatThrownBy(() -> this.userService.updateActive(
+                List.of(user)
+        ))
+                .isInstanceOf(ResponseStatusException.class)
+                .hasMessageContaining("404 NOT_FOUND")
+                .hasMessageContaining("User not found");
+    }
 }

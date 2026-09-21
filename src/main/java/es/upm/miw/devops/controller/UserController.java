@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 
 import java.util.List;
 
@@ -53,5 +54,10 @@ public class UserController {
             @PathVariable String id,
             @RequestBody User user) {
         return this.userService.update(id, user);
+    }
+
+    @PatchMapping
+    public List<User> updateActive(@RequestBody List<User> users) {
+        return this.userService.updateActive(users);
     }
 }
