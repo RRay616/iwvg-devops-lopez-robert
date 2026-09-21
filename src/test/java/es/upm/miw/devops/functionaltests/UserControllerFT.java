@@ -1,6 +1,7 @@
 package es.upm.miw.devops.functionaltests;
 
 import es.upm.miw.devops.seeder.UserSeeder;
+import es.upm.miw.devops.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
+
+import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
@@ -125,6 +128,63 @@ class UserControllerFT {
         this.webTestClient.put()
                 .uri("/user/999/active")
                 .bodyValue(false)
+                .exchange()
+                .expectStatus().isNotFound();
+    }
+
+    @Test
+    void testUpdate() {
+        User user = new User(
+                "1",
+                "Pedro",
+                "Lopez",
+                "pedro@example.com",
+                "98765432B",
+                "Calle Nueva 10",
+                List.of()
+        );
+        user.setCity("Madrid");
+        user.setProvince("Madrid");
+        user.setPostalCode("28010");
+        user.setActive(false);
+
+        this.webTestClient.put()
+                .uri("/user/1")
+                .bodyValue(user)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.id").isEqualTo("1")
+                .jsonPath("$.name").isEqualTo("Pedro")
+                .jsonPath("$.familyName").isEqualTo("Lopez")
+                .jsonPath("$.email").isEqualTo("pedro@example.com")
+                .jsonPath("$.identity").isEqualTo("98765432B")
+                .jsonPath("$.address").isEqualTo("Calle Nueva 10")
+                .jsonPath("$.city").isEqualTo("Madrid")
+                .jsonPath("$.province").isEqualTo("Madrid")
+                .jsonPath("$.postalCode").isEqualTo("28010")
+                .jsonPath("$.active").isEqualTo(false);
+    }
+
+    @Test
+    void testUpdateNotFound() {
+        User user = new User(
+                "999",
+                "Pedro",
+                "Lopez",
+                "pedro@example.com",
+                "98765432B",
+                "Calle Nueva 10",
+                List.of()
+        );
+        user.setCity("Madrid");
+        user.setProvince("Madrid");
+        user.setPostalCode("28010");
+        user.setActive(false);
+
+        this.webTestClient.put()
+                .uri("/user/999")
+                .bodyValue(user)
                 .exchange()
                 .expectStatus().isNotFound();
     }
