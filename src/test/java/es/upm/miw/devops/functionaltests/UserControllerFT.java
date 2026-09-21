@@ -188,4 +188,51 @@ class UserControllerFT {
                 .exchange()
                 .expectStatus().isNotFound();
     }
+
+    @Test
+    void testUpdateActiveList() {
+        User user1 = new User(
+                "1",
+                "Oscar",
+                "Fernandez",
+                List.of()
+        );
+        user1.setActive(false);
+
+        User user3 = new User(
+                "3",
+                "Oscar",
+                "López",
+                List.of()
+        );
+        user3.setActive(false);
+
+        this.webTestClient.patch()
+                .uri("/user")
+                .bodyValue(List.of(user1, user3))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$[0].id").isEqualTo("1")
+                .jsonPath("$[0].active").isEqualTo(false)
+                .jsonPath("$[1].id").isEqualTo("3")
+                .jsonPath("$[1].active").isEqualTo(false);
+    }
+
+    @Test
+    void testUpdateActiveListNotFound() {
+        User user = new User(
+                "999",
+                "Pedro",
+                "Lopez",
+                List.of()
+        );
+        user.setActive(false);
+
+        this.webTestClient.patch()
+                .uri("/user")
+                .bodyValue(List.of(user))
+                .exchange()
+                .expectStatus().isNotFound();
+    }
 }
