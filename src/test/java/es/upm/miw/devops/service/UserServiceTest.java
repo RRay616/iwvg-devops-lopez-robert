@@ -1,6 +1,7 @@
 package es.upm.miw.devops.service;
 
 import es.upm.miw.devops.models.User;
+import es.upm.miw.devops.models.Role;
 import es.upm.miw.devops.seeder.UserSeeder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -226,5 +227,30 @@ class UserServiceTest {
                 .isInstanceOf(ResponseStatusException.class)
                 .hasMessageContaining("404 NOT_FOUND")
                 .hasMessageContaining("User not found");
+    }
+
+    @Test
+    void testUpdateActiveAdminNotAllowed() {
+        User admin = new User(
+                "1",
+                "Oscar",
+                "Fernandez",
+                "oscar@example.com",
+                "12345678A",
+                "Calle Mayor 1",
+                List.of()
+        );
+        admin.setCity("Madrid");
+        admin.setProvince("Madrid");
+        admin.setPostalCode("28001");
+        admin.setRole(Role.ADMIN);
+        admin.setActive(true);
+
+        this.userService.update("1", admin);
+
+        assertThatThrownBy(() -> this.userService.updateActive("1", false))
+                .isInstanceOf(ResponseStatusException.class)
+                .hasMessageContaining("403 FORBIDDEN")
+                .hasMessageContaining("ADMIN users cannot be deactivated");
     }
 }
