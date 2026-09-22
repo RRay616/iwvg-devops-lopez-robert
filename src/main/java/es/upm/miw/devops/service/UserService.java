@@ -1,6 +1,7 @@
 package es.upm.miw.devops.service;
 
 import es.upm.miw.devops.models.User;
+import es.upm.miw.devops.models.Role;
 import es.upm.miw.devops.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,14 @@ public class UserService {
 
     public User updateActive(String id, boolean active) {
         User user = this.readById(id);
+
+        if (Role.ADMIN == user.getRole() && !active) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN,
+                    "ADMIN users cannot be deactivated"
+            );
+        }
+
         user.setActive(active);
         return this.userRepository.save(user);
     }
@@ -70,6 +79,7 @@ public class UserService {
         existingUser.setProvince(user.getProvince());
         existingUser.setPostalCode(user.getPostalCode());
         existingUser.setActive(user.isActive());
+        existingUser.setRole(user.getRole());
 
         return this.userRepository.save(existingUser);
     }

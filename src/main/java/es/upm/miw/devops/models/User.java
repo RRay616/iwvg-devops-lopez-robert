@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,8 @@ public class User {
     private String province;
     private String postalCode;
     private boolean active = true;
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.USER;
 
     @Transient
     private List<Fraction> fractions;
@@ -138,6 +142,14 @@ public class User {
 
     public void addFraction(Fraction fraction) {
         this.fractions.add(fraction);
+    }
+
+    public Role getRole() {
+        return this.role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String fullName() {
