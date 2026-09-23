@@ -1,7 +1,7 @@
 package es.upm.miw.devops.functionaltests;
 
 import es.upm.miw.devops.seeder.UserSeeder;
-import es.upm.miw.devops.models.User;
+import es.upm.miw.devops.infrastructure.data.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.util.List;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
 @ActiveProfiles("test")
-class UserControllerFT {
+class UserResourceFT {
 
     @Autowired
     private WebTestClient webTestClient;

@@ -1,4 +1,4 @@
-package es.upm.miw.devops;
+package es.upm.miw.devops.configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

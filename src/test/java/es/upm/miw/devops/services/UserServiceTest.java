@@ -1,7 +1,7 @@
-package es.upm.miw.devops.service;
+package es.upm.miw.devops.services;
 
-import es.upm.miw.devops.models.User;
-import es.upm.miw.devops.models.Role;
+import es.upm.miw.devops.infrastructure.data.models.User;
+import es.upm.miw.devops.infrastructure.data.models.Role;
 import es.upm.miw.devops.seeder.UserSeeder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

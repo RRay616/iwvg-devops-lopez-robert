@@ -1,5 +1,6 @@
-package es.upm.miw.devops.rest.exceptionshandler;
+package es.upm.miw.devops.resources.exceptionshandler;
 
+import es.upm.miw.devops.resources.exceptionshandler.ErrorMessage;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

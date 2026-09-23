@@ -1,8 +1,8 @@
-package es.upm.miw.devops.service;
+package es.upm.miw.devops.services;
 
-import es.upm.miw.devops.models.User;
-import es.upm.miw.devops.models.Role;
-import es.upm.miw.devops.repository.UserRepository;
+import es.upm.miw.devops.infrastructure.data.models.User;
+import es.upm.miw.devops.infrastructure.data.models.Role;
+import es.upm.miw.devops.infrastructure.data.daos.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;

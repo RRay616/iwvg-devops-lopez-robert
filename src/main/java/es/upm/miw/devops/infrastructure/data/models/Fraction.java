@@ -1,4 +1,4 @@
-package es.upm.miw.devops.models;
+package es.upm.miw.devops.infrastructure.data.models;
 
 /**
  * Conceptos: Las fracciones propias son aquellas cuyo numerador es menor que el denominador

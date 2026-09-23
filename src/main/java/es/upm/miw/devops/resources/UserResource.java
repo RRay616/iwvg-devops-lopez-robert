@@ -1,7 +1,7 @@
-package es.upm.miw.devops.controller;
+package es.upm.miw.devops.resources;
 
-import es.upm.miw.devops.models.User;
-import es.upm.miw.devops.service.UserService;
+import es.upm.miw.devops.infrastructure.data.models.User;
+import es.upm.miw.devops.services.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +16,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserResource {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    public UserResource(UserService userService) {
         this.userService = userService;
     }
 

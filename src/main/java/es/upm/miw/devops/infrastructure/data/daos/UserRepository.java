@@ -1,6 +1,6 @@
-package es.upm.miw.devops.repository;
+package es.upm.miw.devops.infrastructure.data.daos;
 
-import es.upm.miw.devops.models.User;
+import es.upm.miw.devops.infrastructure.data.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, String> {

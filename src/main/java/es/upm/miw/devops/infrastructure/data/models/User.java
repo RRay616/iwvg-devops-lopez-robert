@@ -1,5 +1,7 @@
-package es.upm.miw.devops.models;
+package es.upm.miw.devops.infrastructure.data.models;
 
+import es.upm.miw.devops.infrastructure.data.models.Fraction;
+import es.upm.miw.devops.infrastructure.data.models.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
