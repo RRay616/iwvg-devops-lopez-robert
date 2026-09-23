@@ -1,16 +1,18 @@
 package es.upm.miw.devops.resources;
 
-import es.upm.miw.devops.infrastructure.data.models.User;
+import es.upm.miw.devops.resources.dtos.UserActiveUpdatingDto;
+import es.upm.miw.devops.resources.dtos.UserResponseDto;
+import es.upm.miw.devops.resources.dtos.UserUpdatingDto;
 import es.upm.miw.devops.services.UserService;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 
 import java.util.List;
 
@@ -25,16 +27,20 @@ public class UserResource {
     }
 
     @GetMapping("/{id}")
-    public User readById(@PathVariable String id) {
-        return this.userService.readById(id);
+    public UserResponseDto readById(@PathVariable String id) {
+        return UserResponseDto.fromEntity(this.userService.readById(id));
     }
 
     @GetMapping("/search")
-    public List<User> findByFilter(
+    public List<UserResponseDto> findByFilter(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String familyName,
             @RequestParam(required = false) Boolean billable) {
-        return this.userService.findByFilter(name, familyName, billable);
+
+        return this.userService.findByFilter(name, familyName, billable)
+                .stream()
+                .map(UserResponseDto::fromEntity)
+                .toList();
     }
 
     @DeleteMapping("/{id}")
@@ -43,21 +49,32 @@ public class UserResource {
     }
 
     @PutMapping("/{id}/active")
-    public User updateActive(
+    public UserResponseDto updateActive(
             @PathVariable String id,
             @RequestBody boolean active) {
-        return this.userService.updateActive(id, active);
+
+        return UserResponseDto.fromEntity(
+                this.userService.updateActive(id, active)
+        );
     }
 
     @PutMapping("/{id}")
-    public User update(
+    public UserResponseDto update(
             @PathVariable String id,
-            @RequestBody User user) {
-        return this.userService.update(id, user);
+            @RequestBody UserUpdatingDto user) {
+
+        return UserResponseDto.fromEntity(
+                this.userService.update(id, user.toEntity(id))
+        );
     }
 
     @PatchMapping
-    public List<User> updateActive(@RequestBody List<User> users) {
-        return this.userService.updateActive(users);
+    public List<UserResponseDto> updateActive(
+            @RequestBody List<UserActiveUpdatingDto> users) {
+
+        return users.stream()
+                .map(user -> this.userService.updateActive(user.id(), user.active()))
+                .map(UserResponseDto::fromEntity)
+                .toList();
     }
 }

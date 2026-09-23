@@ -1,7 +1,8 @@
 package es.upm.miw.devops.functionaltests;
 
+import es.upm.miw.devops.resources.dtos.UserActiveUpdatingDto;
+import es.upm.miw.devops.resources.dtos.UserUpdatingDto;
 import es.upm.miw.devops.seeder.UserSeeder;
-import es.upm.miw.devops.infrastructure.data.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -134,19 +135,18 @@ class UserResourceFT {
 
     @Test
     void testUpdate() {
-        User user = new User(
-                "1",
+        UserUpdatingDto user = new UserUpdatingDto(
                 "Pedro",
                 "Lopez",
                 "pedro@example.com",
                 "98765432B",
                 "Calle Nueva 10",
-                List.of()
+                "Madrid",
+                "Madrid",
+                "28010",
+                false,
+                null
         );
-        user.setCity("Madrid");
-        user.setProvince("Madrid");
-        user.setPostalCode("28010");
-        user.setActive(false);
 
         this.webTestClient.put()
                 .uri("/user/1")
@@ -168,19 +168,18 @@ class UserResourceFT {
 
     @Test
     void testUpdateNotFound() {
-        User user = new User(
-                "999",
+        UserUpdatingDto user = new UserUpdatingDto(
                 "Pedro",
                 "Lopez",
                 "pedro@example.com",
                 "98765432B",
                 "Calle Nueva 10",
-                List.of()
+                "Madrid",
+                "Madrid",
+                "28010",
+                false,
+                null
         );
-        user.setCity("Madrid");
-        user.setProvince("Madrid");
-        user.setPostalCode("28010");
-        user.setActive(false);
 
         this.webTestClient.put()
                 .uri("/user/999")
@@ -191,21 +190,8 @@ class UserResourceFT {
 
     @Test
     void testUpdateActiveList() {
-        User user1 = new User(
-                "1",
-                "Oscar",
-                "Fernandez",
-                List.of()
-        );
-        user1.setActive(false);
-
-        User user3 = new User(
-                "3",
-                "Oscar",
-                "López",
-                List.of()
-        );
-        user3.setActive(false);
+        UserActiveUpdatingDto user1 = new UserActiveUpdatingDto("1", false);
+        UserActiveUpdatingDto user3 = new UserActiveUpdatingDto("3", false);
 
         this.webTestClient.patch()
                 .uri("/user")
@@ -221,13 +207,7 @@ class UserResourceFT {
 
     @Test
     void testUpdateActiveListNotFound() {
-        User user = new User(
-                "999",
-                "Pedro",
-                "Lopez",
-                List.of()
-        );
-        user.setActive(false);
+        UserActiveUpdatingDto user = new UserActiveUpdatingDto("999", false);
 
         this.webTestClient.patch()
                 .uri("/user")
