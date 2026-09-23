@@ -1,5 +1,6 @@
 package es.upm.miw.devops.functionaltests;
 
+import es.upm.miw.devops.infrastructure.data.models.Role;
 import es.upm.miw.devops.resources.dtos.UserActiveUpdatingDto;
 import es.upm.miw.devops.resources.dtos.UserUpdatingDto;
 import es.upm.miw.devops.seeder.UserSeeder;
@@ -214,5 +215,33 @@ class UserResourceFT {
                 .bodyValue(List.of(user))
                 .exchange()
                 .expectStatus().isNotFound();
+    }
+
+    @Test
+    void testUpdateActiveAdminNotAllowed() {
+        UserUpdatingDto admin = new UserUpdatingDto(
+                "Oscar",
+                "Fernandez",
+                "oscar@example.com",
+                "12345678A",
+                "Calle Mayor 1",
+                "Madrid",
+                "Madrid",
+                "28001",
+                true,
+                Role.ADMIN
+        );
+
+        this.webTestClient.put()
+                .uri("/user/1")
+                .bodyValue(admin)
+                .exchange()
+                .expectStatus().isOk();
+
+        this.webTestClient.put()
+                .uri("/user/1/active")
+                .bodyValue(false)
+                .exchange()
+                .expectStatus().isForbidden();
     }
 }

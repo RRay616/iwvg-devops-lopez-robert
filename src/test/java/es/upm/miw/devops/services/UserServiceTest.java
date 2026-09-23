@@ -8,7 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.web.server.ResponseStatusException;
+import es.upm.miw.devops.services.exceptions.UserDeactivationNotAllowedException;
+import es.upm.miw.devops.services.exceptions.UserNotFoundException;
 
 import java.util.List;
 
@@ -43,9 +44,8 @@ class UserServiceTest {
     @Test
     void testReadByIdNotFound() {
         assertThatThrownBy(() -> this.userService.readById("999"))
-                .isInstanceOf(ResponseStatusException.class)
-                .hasMessageContaining("404 NOT_FOUND")
-                .hasMessageContaining("User not found");
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessage("User with id '999' not found");
     }
 
     @Test
@@ -89,17 +89,15 @@ class UserServiceTest {
         this.userService.deleteById("1");
 
         assertThatThrownBy(() -> this.userService.readById("1"))
-                .isInstanceOf(ResponseStatusException.class)
-                .hasMessageContaining("404 NOT_FOUND")
-                .hasMessageContaining("User not found");
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessage("User with id '1' not found");
     }
 
     @Test
     void testDeleteByIdNotFound() {
         assertThatThrownBy(() -> this.userService.deleteById("999"))
-                .isInstanceOf(ResponseStatusException.class)
-                .hasMessageContaining("404 NOT_FOUND")
-                .hasMessageContaining("User not found");
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessage("User with id '999' not found");
     }
 
     @Test
@@ -117,9 +115,8 @@ class UserServiceTest {
     @Test
     void testUpdateActiveNotFound() {
         assertThatThrownBy(() -> this.userService.updateActive("999", false))
-                .isInstanceOf(ResponseStatusException.class)
-                .hasMessageContaining("404 NOT_FOUND")
-                .hasMessageContaining("User not found");
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessage("User with id '999' not found");
     }
 
     @Test
@@ -182,9 +179,8 @@ class UserServiceTest {
         user.setActive(false);
 
         assertThatThrownBy(() -> this.userService.update("999", user))
-                .isInstanceOf(ResponseStatusException.class)
-                .hasMessageContaining("404 NOT_FOUND")
-                .hasMessageContaining("User not found");
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessage("User with id '999' not found");
     }
 
     @Test
@@ -224,9 +220,8 @@ class UserServiceTest {
         assertThatThrownBy(() -> this.userService.updateActive(
                 List.of(user)
         ))
-                .isInstanceOf(ResponseStatusException.class)
-                .hasMessageContaining("404 NOT_FOUND")
-                .hasMessageContaining("User not found");
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessage("User with id '999' not found");
     }
 
     @Test
@@ -249,8 +244,7 @@ class UserServiceTest {
         this.userService.update("1", admin);
 
         assertThatThrownBy(() -> this.userService.updateActive("1", false))
-                .isInstanceOf(ResponseStatusException.class)
-                .hasMessageContaining("403 FORBIDDEN")
-                .hasMessageContaining("ADMIN users cannot be deactivated");
+                .isInstanceOf(UserDeactivationNotAllowedException.class)
+                .hasMessage("ADMIN user with id '1' cannot be deactivated");
     }
 }

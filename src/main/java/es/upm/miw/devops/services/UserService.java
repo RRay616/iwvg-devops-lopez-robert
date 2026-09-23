@@ -1,11 +1,11 @@
 package es.upm.miw.devops.services;
 
-import es.upm.miw.devops.infrastructure.data.models.User;
-import es.upm.miw.devops.infrastructure.data.models.Role;
 import es.upm.miw.devops.infrastructure.data.daos.UserRepository;
-import org.springframework.http.HttpStatus;
+import es.upm.miw.devops.infrastructure.data.models.Role;
+import es.upm.miw.devops.infrastructure.data.models.User;
+import es.upm.miw.devops.services.exceptions.UserDeactivationNotAllowedException;
+import es.upm.miw.devops.services.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Comparator;
 import java.util.List;
@@ -21,10 +21,7 @@ public class UserService {
 
     public User readById(String id) {
         return this.userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "User not found"
-                ));
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     public List<User> findByFilter(String name, String familyName, Boolean billable) {
@@ -38,10 +35,7 @@ public class UserService {
 
     public void deleteById(String id) {
         if (!this.userRepository.existsById(id)) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "User not found"
-            );
+            throw new UserNotFoundException(id);
         }
 
         this.userRepository.deleteById(id);
@@ -51,10 +45,7 @@ public class UserService {
         User user = this.readById(id);
 
         if (Role.ADMIN == user.getRole() && !active) {
-            throw new ResponseStatusException(
-                    HttpStatus.FORBIDDEN,
-                    "ADMIN users cannot be deactivated"
-            );
+            throw new UserDeactivationNotAllowedException(id);
         }
 
         user.setActive(active);
