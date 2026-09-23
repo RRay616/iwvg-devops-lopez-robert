@@ -1,5 +1,7 @@
 package es.upm.miw.devops.models;
 
+import es.upm.miw.devops.infrastructure.data.models.Fraction;
+import es.upm.miw.devops.infrastructure.data.models.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

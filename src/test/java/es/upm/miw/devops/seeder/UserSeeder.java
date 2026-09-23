@@ -1,7 +1,7 @@
 package es.upm.miw.devops.seeder;
 
-import es.upm.miw.devops.models.User;
-import es.upm.miw.devops.repository.UserRepository;
+import es.upm.miw.devops.infrastructure.data.models.User;
+import es.upm.miw.devops.infrastructure.data.daos.UserRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -1,5 +1,6 @@
 package es.upm.miw.devops.models;
 
+import es.upm.miw.devops.infrastructure.data.models.Fraction;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
