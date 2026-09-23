@@ -1,7 +1,0 @@
-package es.upm.miw.devops.repository;
-
-import es.upm.miw.devops.models.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface UserRepository extends JpaRepository<User, String> {
-}
